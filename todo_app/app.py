@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 
 from todo_app.flask_config import Config
 
@@ -11,4 +11,10 @@ app.config.from_object(Config())
 @app.route('/')
 def index():
     items = get_items()
-    return render_template("index.html", items=items)
+    return render_template('index.html', items=items)
+
+@app.route('/', methods=['POST'])
+def new_item():
+    item = request.form.get('field_name')
+    add_item(item)
+    return redirect('/')
