@@ -31,3 +31,28 @@ def get_trello_items():
             cards.append(card)
 
         print(cards)
+
+def add_trello_items(title):
+    url = "https://api.trello.com/1/cards"
+
+    headers = {
+        "Accept": "application/json"
+    }
+
+    query = {
+        'idList': '5abbe4b7ddc1b351ef961414',
+        'key': os.getenv('TRELLO_KEY'),
+        'token': os.getenv('TRELLO_TOKEN')
+    }
+
+    response = requests.request(
+        "POST",
+        url,
+        headers=headers,
+        params=query
+    )
+
+    print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+
+def update_item_status():
+    pass
