@@ -23,4 +23,11 @@ def get_trello_items():
         params=query
     )
 
-    print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+    response_json = response.json()
+
+    cards = []
+    for trello_list in response_json:
+        for card in trello_list['cards']:
+            cards.append(card)
+
+        print(cards)
