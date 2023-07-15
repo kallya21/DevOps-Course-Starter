@@ -11,7 +11,9 @@ def get_trello_items():
 
     query = {
         'key': os.getenv('TRELLO_KEY'),
-        'token': os.getenv('TRELLO_TOKEN')
+        'token': os.getenv('TRELLO_TOKEN'),
+        'cards': 'open',
+        'card_fields': 'id,name'
     }
 
     response = requests.request(
