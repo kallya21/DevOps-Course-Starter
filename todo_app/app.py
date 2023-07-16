@@ -4,7 +4,7 @@ from todo_app.flask_config import Config
 
 from todo_app.data.session_items import get_items, add_item
 
-from todo_app.data.trello_items import get_trello_items, add_trello_items
+from todo_app.data.trello_items import get_trello_items, add_trello_item
 
 app = Flask(__name__)
 app.config.from_object(Config())
@@ -19,5 +19,5 @@ def index():
 @app.route('/', methods=['POST'])
 def new_item():
     item = request.form.get('new_item')
-    add_trello_items(item)
+    add_item(item)
     return redirect('/')
