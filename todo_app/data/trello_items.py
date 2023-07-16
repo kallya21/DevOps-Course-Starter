@@ -2,17 +2,17 @@ import requests
 import json
 import os
 
-headers = {
-    "Accept": "application/json"
-}
+headers = {"Accept": "application/json"}
+api_key = os.getenv('TRELLO_KEY')
+api_token = os.getenv('TRELLO_TOKEN')
 
 def get_trello_items():
     url = f"https://api.trello.com/1/boards/{os.getenv('BOARD_ID')}/lists"
 
     query = {
-        'key': os.getenv('TRELLO_KEY'),
-        'token': os.getenv('TRELLO_TOKEN'),
-        'fields': 'id,name',
+        'key': api_key,
+        'token': api_token,
+        'fields': 'name',
         'cards': 'open',
         'card_fields': 'id,name'
     }
@@ -26,25 +26,20 @@ def get_trello_items():
 
     response_json = response.json()
 
-    print(response_json)
-
     cards = []
     for trello_list in response_json:
         for card in trello_list['cards']:
             cards.append(card)
-        print(cards)
-
-def add_trello_item(title):
+    return cards
+    
+    
+def add_trello_item(name):
     url = "https://api.trello.com/1/cards"
-
-    headers = {
-        "Accept": "application/json"
-    }
 
     query = {
         'idList': '5abbe4b7ddc1b351ef961414',
-        'key': os.getenv('TRELLO_KEY'),
-        'token': os.getenv('TRELLO_TOKEN')
+        'key': api_key,
+        'token': api_token
     }
 
     response = requests.request(

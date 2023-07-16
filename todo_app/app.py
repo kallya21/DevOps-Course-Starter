@@ -12,9 +12,9 @@ app.config.from_object(Config())
 
 @app.route('/')
 def index():
-    get_trello_items()
+    cards = get_trello_items()
     items = get_items()
-    return render_template('index.html', items=items)
+    return render_template('index.html', cards=cards)
 
 @app.route('/', methods=['POST'])
 def new_item():
