@@ -14,11 +14,10 @@ app.config.from_object(Config())
 def index():
     get_to_do_list()
     cards = get_trello_items()
-    items = get_items()
     return render_template('index.html', cards=cards)
 
 @app.route('/', methods=['POST'])
 def new_item():
     item = request.form.get('new_item')
-    add_item(item)
+    add_trello_item(item)
     return redirect('/')

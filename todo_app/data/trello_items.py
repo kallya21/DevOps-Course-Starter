@@ -45,12 +45,14 @@ def get_to_do_list():
     return to_do_list_id
     
 def add_trello_item(name):
+    to_do_list_id = get_to_do_list()
     url = "https://api.trello.com/1/cards"
 
     query = {
-        'idList': '5abbe4b7ddc1b351ef961414',
+        'idList': to_do_list_id,
         'key': api_key,
-        'token': api_token
+        'token': api_token,
+        'name': name
     }
 
     response = requests.request(
@@ -60,7 +62,8 @@ def add_trello_item(name):
         params=query
     )
 
-    print(json.dumps(json.loads(response.text), sort_keys=True, indent=4, separators=(",", ": ")))
+    response_json = response.json()
+    print(response_json)
 
 def update_item_status():
     pass
