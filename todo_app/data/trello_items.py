@@ -41,7 +41,8 @@ def get_to_do_list():
     list_id = []
     for trello_list in response_json:
         list_id.append(trello_list['id'])
-    print(list_id)
+    to_do_list_id = list_id[0]
+    return to_do_list_id
     
 def add_trello_item(name):
     url = "https://api.trello.com/1/cards"
