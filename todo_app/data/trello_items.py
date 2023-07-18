@@ -1,5 +1,4 @@
 import requests
-import json
 import os
 
 headers = {"Accept": "application/json"}
@@ -36,7 +35,7 @@ def get_trello_items():
             cards.append(card)
     return cards
 
-def get_to_do_list():
+def get_list_id():
     response_json = get_lists()
     list_id = []
     for trello_list in response_json:
@@ -44,7 +43,7 @@ def get_to_do_list():
     return list_id
     
 def add_trello_item(name):
-    list_id = get_to_do_list()
+    list_id = get_list_id()
     to_do_list_id = list_id[0]
     url = "https://api.trello.com/1/cards"
 
