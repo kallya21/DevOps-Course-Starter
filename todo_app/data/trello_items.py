@@ -64,5 +64,16 @@ def add_trello_item(name):
     response_json = response.json()
     return response_json
 
-def update_item_status():
-    pass
+def update_item_status(card_id):
+    list_id = get_list_id()
+    done_list_id = list_id[2]
+    url = f"https://api.trello.com/1/cards/{card_id}"
+
+    query = {
+        'key': api_key,
+        'token': api_token,
+        'idList': done_list_id
+    }
+
+    response = requests.put(url, params=query)
+    return response.json()

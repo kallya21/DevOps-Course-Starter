@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 
 from todo_app.flask_config import Config
 
-from todo_app.data.trello_items import get_trello_items, add_trello_item
+from todo_app.data.trello_items import get_trello_items, add_trello_item, update_item_status
 
 app = Flask(__name__)
 app.config.from_object(Config())
@@ -19,6 +19,7 @@ def new_item():
     add_trello_item(item)
     return redirect('/')
 
-@app.route('/complete_item', methods=['POST'])
-def complete_item():
-    pass
+@app.route('/complete_item/<card_id>', methods=['POST'])
+def complete_item(card_id):
+    update_item_status(card_id)
+    return redirect('/')
