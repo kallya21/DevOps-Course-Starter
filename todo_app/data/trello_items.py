@@ -1,6 +1,16 @@
 import requests
 import os
 
+class Item:
+    def __init__(self, id, name, status = 'To Do'):
+        self.id = id
+        self.name = name
+        self.status = status
+
+    @classmethod
+    def from_trello_card(cls, card, list):
+        return cls(card['id'], card['name'], list['name'])
+
 headers = {"Accept": "application/json"}
 api_key = os.getenv('TRELLO_KEY')
 api_token = os.getenv('TRELLO_TOKEN')
@@ -29,11 +39,13 @@ def get_lists():
 def get_trello_items():
     response_json = get_lists()
 
-    cards = []
+    items = []
     for trello_list in response_json:
         for card in trello_list['cards']:
-            cards.append(card)
-    return cards
+            item = Item.from_trello_card(card, trello_list)
+            items.append(item)
+
+    return items
 
 def get_list_id():
     response_json = get_lists()
