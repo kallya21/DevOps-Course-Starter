@@ -12,15 +12,19 @@ class Item:
         return cls(card['id'], card['name'], list['name'])
 
 headers = {"Accept": "application/json"}
-api_key = os.getenv('TRELLO_KEY')
-api_token = os.getenv('TRELLO_TOKEN')
+
+def api_key():
+    return os.getenv('TRELLO_KEY')
+
+def api_token():
+    return os.getenv('TRELLO_TOKEN')
 
 def get_lists():
     url = f"https://api.trello.com/1/boards/{os.getenv('BOARD_ID')}/lists"
 
     query = {
-        'key': api_key,
-        'token': api_token,
+        'key': api_key(),
+        'token': api_token(),
         'fields': 'name',
         'cards': 'open',
         'card_fields': 'id,name'
@@ -61,8 +65,8 @@ def add_trello_item(name):
 
     query = {
         'idList': to_do_list_id,
-        'key': api_key,
-        'token': api_token,
+        'key': api_key(),
+        'token': api_token(),
         'name': name
     }
 
@@ -82,8 +86,8 @@ def update_item_status(card_id):
     url = f"https://api.trello.com/1/cards/{card_id}"
 
     query = {
-        'key': api_key,
-        'token': api_token,
+        'key': api_key(),
+        'token': api_token(),
         'idList': done_list_id
     }
 
