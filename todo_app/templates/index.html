@@ -11,8 +11,13 @@
     <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
-        {% for item in items %}
-          <li>{{ item.title }}</li>
+        {% for item in cards %}
+          <li>
+            {{ item.name }} - {{ item.status }}
+            <form action="{{ url_for('complete_item', card_id=item.id) }}" method="post" class="form-inline">
+              <button type="submit">Move to Done</button>
+            </form>
+          </li>
         {% endfor %}
       </ul>
     </div>
@@ -23,7 +28,7 @@
       <label for="name">Enter new item: </label>
     </div>
     <div class="form">
-      <input type="text" name="new_item" id="title" required>
+      <input type="text" name="new_item" id="name" required>
     </div>
     <div class="form">
       <input type="submit" value="Add">
