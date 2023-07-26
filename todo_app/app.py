@@ -1,12 +1,14 @@
 from flask import Flask, render_template, request, redirect
 
+from dotenv import load_dotenv
+
 from todo_app.flask_config import Config
 
-from todo_app.data.trello_items import get_trello_items, add_trello_item, update_item_status, Item
+from todo_app.data.trello_items import get_trello_items, add_trello_item, update_item_status
 
 app = Flask(__name__)
 app.config.from_object(Config())
-
+load_dotenv()
 
 @app.route('/')
 def index():

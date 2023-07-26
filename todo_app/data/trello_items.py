@@ -50,17 +50,9 @@ def get_trello_items():
             items.append(item)
 
     return items
-
-def get_list_id():
-    response_json = get_lists()
-    list_id = []
-    for trello_list in response_json:
-        list_id.append(trello_list['id'])
-    return list_id
     
 def add_trello_item(name):
-    list_id = get_list_id()
-    to_do_list_id = list_id[0]
+    to_do_list_id = os.getenv('TO_DO_LIST_ID')
     url = "https://api.trello.com/1/cards"
 
     query = {
@@ -81,8 +73,7 @@ def add_trello_item(name):
     return response_json
 
 def update_item_status(card_id):
-    list_id = get_list_id()
-    done_list_id = list_id[2]
+    done_list_id = os.getenv('DONE_LIST_ID')
     url = f"https://api.trello.com/1/cards/{card_id}"
 
     query = {
@@ -92,4 +83,6 @@ def update_item_status(card_id):
     }
 
     response = requests.put(url, params=query)
-    return response.json()
+
+    response_json = response.json()
+    return response_json
