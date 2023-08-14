@@ -11,7 +11,7 @@
     <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
-        {% for item in cards %}
+        {% for item in view_model.items %}
           <li>
             {{ item.name }} - {{ item.status }}
             <form action="{{ url_for('complete_item', card_id=item.id) }}" method="post" class="form-inline">

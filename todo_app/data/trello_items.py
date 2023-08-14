@@ -11,7 +11,8 @@ class Item:
     def from_trello_card(cls, card, list):
         return cls(card['id'], card['name'], list['name'])
 
-headers = {"Accept": "application/json"}
+def headers():
+    return {"Accept": "application/json"}
 
 def api_key():
     return os.getenv('TRELLO_KEY')
@@ -33,7 +34,7 @@ def get_lists():
     response = requests.request(
         "GET",
         url,
-        headers=headers,
+        headers=headers(),
         params=query
     )
 
@@ -65,7 +66,7 @@ def add_trello_item(name):
     response = requests.request(
         "POST",
         url,
-        headers=headers,
+        headers=headers(),
         params=query
     )
 
