@@ -54,3 +54,22 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+## Running the Tests
+
+In order to run the unit and integration tests from a terminal, ensure that you navigate to the route folder and install pytest by running the following command:
+```bash
+$ poetry install pytest
+```
+Once pytest is installed, you can run all of the tests using the following command:
+```bash
+$ poetry run pytest
+```
+To run all the tests in a specific test file, run the following command:
+```bash
+$ poetry run pytest path/to/test_file.py
+```
+To run a specific test function within a test file, run the following command:
+```bash
+$ poetry run pytest path/to/test_file.py::test_function_name
+```
