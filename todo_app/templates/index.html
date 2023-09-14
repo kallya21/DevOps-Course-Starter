@@ -9,14 +9,43 @@
 
   <div class="row">
     <div class="col-md-12">
-      <h2>Items</h2>
+      <h2>To Do</h2>
       <ul class="list-group mb-4">
-        {% for item in cards %}
+        {% for item in view_model.to_do_items %}
           <li>
-            {{ item.name }} - {{ item.status }}
+            {{ item.name }}
             <form action="{{ url_for('complete_item', card_id=item.id) }}" method="post" class="form-inline">
               <button type="submit">Move to Done</button>
             </form>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Doing</h2>
+      <ul class="list-group mb-4">
+        {% for item in view_model.doing_items %}
+          <li>
+            {{ item.name }}
+            <form action="{{ url_for('complete_item', card_id=item.id) }}" method="post" class="form-inline">
+              <button type="submit">Move to Done</button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Done</h2>
+      <ul class="list-group mb-4">
+        {% for item in view_model.done_items %}
+          <li>
+            {{ item.name }}
           </li>
         {% endfor %}
       </ul>
