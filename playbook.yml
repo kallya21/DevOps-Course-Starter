@@ -2,8 +2,10 @@
   hosts: managed_nodes
 
   tasks:
-    - name: Install Git
+    - name: Install Git and Python3
       become: yes
       ansible.builtin.yum:
-        name: git
+        name: 
+          - git
+          - python3
         state: present
