@@ -1,0 +1,4 @@
+- name: Test Play
+  hosts: managed_nodes
+  remote_user: ec2-user
+  tasks:
