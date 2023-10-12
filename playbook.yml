@@ -1,4 +1,9 @@
-- name: Test Play
+- name: To Do App Playbook
   hosts: managed_nodes
-  remote_user: ec2-user
+
   tasks:
+    - name: Install Git
+      become: yes
+      ansible.builtin.yum:
+        name: git
+        state: present
