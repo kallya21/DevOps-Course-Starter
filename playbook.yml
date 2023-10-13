@@ -9,3 +9,7 @@
           - git
           - python3
         state: present
+
+    - name: Install Poetry
+      become: yes
+      ansible.builtin.shell: curl -sSL https://install.python-poetry.org | POETRY_HOME=/usr/local/bin/poetry python3 - --version 1.5.1
