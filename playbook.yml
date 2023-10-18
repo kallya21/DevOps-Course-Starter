@@ -13,3 +13,22 @@
     - name: Install Poetry
       become: yes
       ansible.builtin.shell: curl -sSL https://install.python-poetry.org | POETRY_HOME=/usr/local/bin/poetry python3 - --version 1.5.1
+
+    - name: Create Directory For To Do App Code
+      become: yes
+      ansible.builtin.file:
+        path: /opt/todoapp
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+
+    - name: Checkout To App Repo
+      ansible.builtin.git:
+        repo: https://github.com/kallya21/DevOps-Course-Starter.git
+        dest: /opt/todoapp
+        version: master
+
+    - name: Install Dependencies
+      ansible.builtin.shell: /usr/local/bin/poetry/bin/poetry install
+      args: 
+        chdir: /opt/todoapp
