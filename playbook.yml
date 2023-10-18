@@ -22,11 +22,12 @@
         mode: '0755'
         owner: ec2-user
 
-    - name: Checkout To App Repo
+    - name: Checkout To Do App Repo
       ansible.builtin.git:
         repo: https://github.com/kallya21/DevOps-Course-Starter.git
         dest: /opt/todoapp
         version: master
+        force: true
 
     - name: Install Dependencies
       ansible.builtin.shell: /usr/local/bin/poetry/bin/poetry install
