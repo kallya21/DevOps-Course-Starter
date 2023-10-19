@@ -44,6 +44,10 @@
       args: 
         chdir: /opt/todoapp
 
+    - name: Debug trello_token
+      debug:
+        var: secret_key
+
     - name: Create .env File
       ansible.builtin.template:
         src: /home/ec2-user/DevOps-Course-Starter/.env.j2
@@ -51,6 +55,6 @@
         owner: ec2-user
         mode: '0644'
       vars:
-        secret_key: secret_key
-        trello_key: trello_key
-        trello_token: trello_token
+        secret_key: "{{ secret_key }}"
+        trello_key: "{{ trello_key }}"
+        trello_token: "{{ trello_token }}"
