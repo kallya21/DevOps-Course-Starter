@@ -1,6 +1,16 @@
 - name: To Do App Playbook
   hosts: managed_nodes
 
+  vars_prompt:
+        - name: secret_key
+          prompt: "Enter the secret key"
+
+        - name: trello_key
+          prompt: "Enter the trello key"
+
+        - name: trello_token
+          prompt: "Enter the trello API token"
+
   tasks:
     - name: Install Git and Python3
       become: yes
@@ -33,3 +43,14 @@
       ansible.builtin.shell: /usr/local/bin/poetry/bin/poetry install
       args: 
         chdir: /opt/todoapp
+
+    - name: Create .env File
+      ansible.builtin.template:
+        src: /home/ec2-user/DevOps-Course-Starter/.env.j2
+        dest: /opt/todoapp/.env
+        owner: ec2-user
+        mode: '0644'
+      vars:
+        secret_key: secret_key
+        trello_key: trello_key
+        trello_token: trello_token
