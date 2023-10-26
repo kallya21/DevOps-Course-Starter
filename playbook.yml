@@ -44,17 +44,22 @@
       args: 
         chdir: /opt/todoapp
 
-    - name: Debug trello_token
-      debug:
-        var: secret_key
-
     - name: Create .env File
       ansible.builtin.template:
         src: /home/ec2-user/DevOps-Course-Starter/.env.j2
         dest: /opt/todoapp/.env
         owner: ec2-user
         mode: '0644'
-      vars:
-        secret_key: "{{ secret_key }}"
-        trello_key: "{{ trello_key }}"
-        trello_token: "{{ trello_token }}"
+
+    - name: Copy todoapp.service File
+      become: yes
+      ansible.builtin.copy:
+        src: /home/ec2-user/DevOps-Course-Starter/todoapp.service
+        dest: /etc/systemd/system/todoapp.service
+
+    - name: Run To Do App
+      become: yes
+      ansible.builtin.systemd:
+        state: restarted
+        daemon_reload: true
+        name: todoapp
