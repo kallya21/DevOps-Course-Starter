@@ -1,0 +1,65 @@
+- name: To Do App Playbook
+  hosts: managed_nodes
+
+  vars_prompt:
+        - name: secret_key
+          prompt: "Enter the secret key"
+
+        - name: trello_key
+          prompt: "Enter the trello key"
+
+        - name: trello_token
+          prompt: "Enter the trello API token"
+
+  tasks:
+    - name: Install Git and Python3
+      become: yes
+      ansible.builtin.yum:
+        name: 
+          - git
+          - python3
+        state: present
+
+    - name: Install Poetry
+      become: yes
+      ansible.builtin.shell: curl -sSL https://install.python-poetry.org | POETRY_HOME=/usr/local/bin/poetry python3 - --version 1.5.1
+
+    - name: Create Directory For To Do App Code
+      become: yes
+      ansible.builtin.file:
+        path: /opt/todoapp
+        state: directory
+        mode: '0755'
+        owner: ec2-user
+
+    - name: Checkout To Do App Repo
+      ansible.builtin.git:
+        repo: https://github.com/kallya21/DevOps-Course-Starter.git
+        dest: /opt/todoapp
+        version: master
+        force: true
+
+    - name: Install Dependencies
+      ansible.builtin.shell: /usr/local/bin/poetry/bin/poetry install
+      args: 
+        chdir: /opt/todoapp
+
+    - name: Create .env File
+      ansible.builtin.template:
+        src: /home/ec2-user/DevOps-Course-Starter/.env.j2
+        dest: /opt/todoapp/.env
+        owner: ec2-user
+        mode: '0644'
+
+    - name: Copy todoapp.service File
+      become: yes
+      ansible.builtin.copy:
+        src: /home/ec2-user/DevOps-Course-Starter/todoapp.service
+        dest: /etc/systemd/system/todoapp.service
+
+    - name: Run To Do App
+      become: yes
+      ansible.builtin.systemd:
+        state: restarted
+        daemon_reload: true
+        name: todoapp
