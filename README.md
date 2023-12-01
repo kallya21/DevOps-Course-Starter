@@ -73,3 +73,25 @@ To run a specific test function within a test file, run the following command:
 ```bash
 $ poetry run pytest path/to/test_file.py::test_function_name
 ```
+## Building and Running Containers
+
+### Development Container
+Ensure you have Docker installed and properly configured on your machine before running these commands.
+
+To build the development container, run the following command:
+```bash
+$ docker build --target development --tag todo-app:dev .
+```
+Run the development container, mounting the project for Flask auto-reloading using the following command:
+```bash
+$ docker run --env-file .env -p 5100:80 --mount type=bind,source="$(pwd)"/todo_app,target=/app/todo_app todo-app:dev
+```
+### Production Container
+To build the production container, run the following command:
+```bash
+$ docker build --target production --tag todo-app:prod .
+```
+Run the production container using the following command:
+```bash
+$ docker run --env-file .env -p 8000:8000 todo-app:prod
+```
