@@ -14,3 +14,6 @@ EXPOSE 8000
 FROM base as development
 CMD ["poetry", "run", "flask", "run", "--host", "0.0.0.0", "--port", "80"]
 EXPOSE 5000
+
+FROM base as test
+ENTRYPOINT ["poetry", "run", "pytest"]

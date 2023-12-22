@@ -95,3 +95,12 @@ Run the production container using the following command:
 ```bash
 $ docker run --env-file .env -p 8000:8000 todo-app:prod
 ```
+### Test Container
+The test container is used to run the unit and integration tests for the To Do App. To build the test container, run the following command:
+```bash
+$ docker build --target test --tag my-test-image .
+```
+Run the test container using the following command:
+```bash
+$ docker run --env-file .env.test  my-test-image
+```
