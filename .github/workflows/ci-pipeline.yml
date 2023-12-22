@@ -16,3 +16,12 @@ jobs:
     - run: |
         docker build --target test --tag my-test-image .
         docker run --env-file .env.test  my-test-image
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/python-3.8@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
