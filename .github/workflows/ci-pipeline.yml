@@ -24,7 +24,12 @@ jobs:
     needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/exercise-9'
     steps:
-    - run: echo Publishing!
+    - uses: actions/checkout@v2
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
   security:
     runs-on: ubuntu-latest
