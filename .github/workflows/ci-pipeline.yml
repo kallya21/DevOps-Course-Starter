@@ -1,8 +1,8 @@
 name: Continuous Integration
 on:
+  schedule:
+    - cron: '35 0 * * *'
   push:
-    branches: 
-        - exercise-9
     paths-ignore:
         - 'README.md'
   pull_request:
