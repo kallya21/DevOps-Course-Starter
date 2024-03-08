@@ -104,3 +104,27 @@ Run the test container using the following command:
 ```bash
 $ docker run --env-file .env.test  my-test-image
 ```
+## Manual Deployment
+Find the Docker images for this project [here](https://hub.docker.com/repository/docker/kallya21/todo-app/).
+### Release Docker Image to DockerHub
+To release the Docker image to DockerHub, you first need to build the production container using the following command:
+```bash
+$ docker build --target production --tag kallya21/todo-app:prod .
+```
+Then you need to push the image to docker using the following command:
+```bash
+$ docker push kallya21/todo-app:prod
+```
+### Deploy App on Azure
+#### Find the Webhook URL:
+In the Azure portal, navigate to the app service dashboard. Then go to Deployment Center where you can find the webhook URL provided under deployment settings.
+#### Test the Webhook:
+Copy the webhook URL and add in a backslash to escape the `$`. Run the following command replacing `<webhook>` with the actual webhook:
+```bash
+$ curl -dH -X POST "<webhook>"
+```
+It should end up looking something like this:
+```bash
+$ curl -dH -X POST "https://\$<deployment_username>:<deployment_password>@<webapp_name>.scm.azurewebsites.net/docker/hook"
+```
+Upon successfully triggering the webhook, you should receive a link to a log-stream related to the re-pulling of the image and restarting the app.
