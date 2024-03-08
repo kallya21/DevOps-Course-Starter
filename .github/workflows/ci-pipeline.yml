@@ -34,7 +34,6 @@ jobs:
     - run: docker push kallya21/todo-app:latest
     - run: curl -dH -X POST "${{ secrets.AZURE_WEBHOOK_URL }}"
     - run: curl -dH -X POST '${{ secrets.AZURE_WEBHOOK_URL }}'
-    - run: curl -dH -X POST "\${{ secrets.AZURE_WEBHOOK_URL }}"
     - run: curl -dH -X POST $WEBHOOK
       env:
         WEBHOOK: ${{ secrets.AZURE_WEBHOOK_URL }}
