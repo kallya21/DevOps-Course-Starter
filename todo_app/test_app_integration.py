@@ -1,5 +1,3 @@
-import os
-import pymongo
 import pytest
 import mongomock
 from dotenv import load_dotenv, find_dotenv
