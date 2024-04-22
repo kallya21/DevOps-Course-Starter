@@ -14,7 +14,7 @@
         {% for item in view_model.to_do_items %}
           <li>
             {{ item.name }}
-            <form action="{{ url_for('complete_item', card_id=item.id) }}" method="post" class="form-inline">
+            <form action="{{ url_for('complete_item', item_id=item._id) }}" method="post" class="form-inline">
               <button type="submit">Move to Done</button>
             </form>
           </li>
@@ -30,7 +30,7 @@
         {% for item in view_model.doing_items %}
           <li>
             {{ item.name }}
-            <form action="{{ url_for('complete_item', card_id=item.id) }}" method="post" class="form-inline">
+            <form action="{{ url_for('complete_item', item_id=item._id) }}" method="post" class="form-inline">
               <button type="submit">Move to Done</button>
             </form>
           </li>
