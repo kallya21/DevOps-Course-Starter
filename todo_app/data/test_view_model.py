@@ -1,6 +1,6 @@
 import pytest
 from todo_app.data.view_model import ViewModel
-from todo_app.data.trello_items import Item
+from todo_app.data.db_items import Item
 
 @pytest.fixture
 def sample_items():

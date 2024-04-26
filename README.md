@@ -34,7 +34,11 @@ $ cp .env.template .env  # (first time only)
 
 The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
 
-In order to populate the `TRELLO_KEY`, `TRELLO_TOKEN`, `BOARD_ID`, `TO_DO_LIST_ID` and `DONE_LIST_ID` variables, you will need to create a Trello account [here](https://trello.com/signup). Follow [these instructions](https://trello.com/app-key) to get the values for the `TRELLO_KEY` and `TRELLO_TOKEN`. Create a Trello board with a to do list and a done list in order to get the `BOARD_ID`, `TO_DO_LIST_ID` and `DONE_LIST_ID`.
+In order to populate the `PRIMARY_CONNECTION_STRING`, `MONGO_DB_NAME`, you will need to create a CosmosDB instance in Azure in order to create a MongoDB database. Once you have created a MongoDB instance, you can find the `PRIMARY_CONNECTION_STRING` for your CosmosDB cluster under Settings -> Connection String from your CosmosDB account page in the Azure portal, or via the CLI:
+```bash
+$ az cosmosdb keys list -n <cosmos_account_name> -g <resource_group_name> --type connection-strings
+```
+You can populate the `MONGO_DB_NAME` with the name you want to give your MongoDB database.
 
 ## Running the App
 
