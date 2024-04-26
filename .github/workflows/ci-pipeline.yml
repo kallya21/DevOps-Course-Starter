@@ -34,22 +34,6 @@ jobs:
     - run: docker build --target production --tag kallya21/todo-app:latest .
     - run: docker push kallya21/todo-app:latest
     - run: curl --fail -dH -X POST '${{ secrets.AZURE_WEBHOOK_URL }}'
-
-  deploy:
-    name: Build and deploy
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-    steps:
-    - uses: actions/checkout@v2
-    - name: Login to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-    - run: docker build --target production --tag kallya21/todo-app:latest .
-    - run: docker push kallya21/todo-app:latest
-    - run: curl --fail -dH -X POST '${{ secrets.AZURE_WEBHOOK_URL }}'
         
   security:
     runs-on: ubuntu-latest
