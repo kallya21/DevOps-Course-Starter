@@ -34,7 +34,11 @@ jobs:
     - run: docker build --target production --tag kallya21/todo-app:latest .
     - run: docker push kallya21/todo-app:latest
     - run: curl --fail -dH -X POST '${{ secrets.AZURE_WEBHOOK_URL }}'
+<<<<<<< HEAD
         
+=======
+    
+>>>>>>> master
   security:
     runs-on: ubuntu-latest
     steps:
