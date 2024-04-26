@@ -17,6 +17,7 @@ jobs:
     - uses: actions/checkout@v2
     - run: docker build --target test --tag my-test-image .
     - run: docker run --env-file .env.test  my-test-image
+    - run: docker run --entrypoint poetry my-test-image run safety check
 
   deploy:
     name: Build and deploy
