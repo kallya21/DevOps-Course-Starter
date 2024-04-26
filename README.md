@@ -132,3 +132,4 @@ It should end up looking something like this:
 $ curl -dH -X POST "https://\$<deployment_username>:<deployment_password>@<webapp_name>.scm.azurewebsites.net/docker/hook"
 ```
 Upon successfully triggering the webhook, you should receive a link to a log-stream related to the re-pulling of the image and restarting the app.
+Find the deployed website [here](https://ka-todoapp.azurewebsites.net/).
