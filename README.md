@@ -131,7 +131,7 @@ It should end up looking something like this:
 ```bash
 $ curl -dH -X POST "https://\$<deployment_username>:<deployment_password>@<webapp_name>.scm.azurewebsites.net/docker/hook"
 ```
-Upon successfully triggering the webhook, you should receive a link to a log-stream related to the re-pulling of the image and restarting the app.
+Upon successfully triggering the webhook, you should receive a link to a log-stream related to the re-pulling of the image and restarting the app. Find the deployed website [here](https://ka-todoapp.azurewebsites.net/).
 
 ## Encryption Status
 Encryption-at-rest is a security measure used for persisted data, such as data stored on hard drives, solid-state drives (SSDs), databases, or cloud storage. It involves encrypting the data before it is written to the storage medium, ensuring that the data remains encrypted while at rest or not actively being accessed.
