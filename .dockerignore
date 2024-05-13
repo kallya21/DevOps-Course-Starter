@@ -1,4 +1,6 @@
 .env
 Dockerfile
 .terraform.lock.hcl
-.terraform/
+**/.terraform/*
+*.tfstate
+*.tfstate.*
