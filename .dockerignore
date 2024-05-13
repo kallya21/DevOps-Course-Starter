@@ -1,2 +1,4 @@
 .env
 Dockerfile
+.terraform.lock.hcl
+.terraform/
