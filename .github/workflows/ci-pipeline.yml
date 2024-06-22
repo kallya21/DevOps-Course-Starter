@@ -36,7 +36,7 @@ jobs:
     - run: docker build --target production --tag kallya21/todo-app:latest .
     - run: docker push kallya21/todo-app:latest
 
-    - name: Set up Terraform
+    - name: Set up and deploy Terraform
       env:
         ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
         ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
@@ -52,8 +52,6 @@ jobs:
         cd terraform
         terraform init
         terraform apply -auto-approve
-    - run: |
-        cd terraform
         curl -dH -X POST "$(terraform output -raw cd_webhook)"
    
   security:
