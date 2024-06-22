@@ -43,6 +43,12 @@ jobs:
         ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
         ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+        TF_VAR_prefix: ${{ secrets.PREFIX }}
+        TF_VAR_docker_registry_server_url: ${{ secrets.DOCKER_REGISTRY_SERVER_URL }}
+        TF_VAR_secret_key: ${{ secrets.SECRET_KEY }}
+        TF_VAR_mongo_db_name: ${{ secrets.MONGO_DB_NAME }}
+        TF_VAR_flask_app: ${{ secrets.FLASK_APP }}
+        TF_VAR_websites_port: ${{ secrets.WEBSITES_PORT }}
       run: |
         cd terraform
         terraform init
