@@ -43,8 +43,9 @@ jobs:
         ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
         ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
         ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      run: cd terraform
-    - run: terraform init
+      run: |
+        cd terraform
+        terraform init
    
   security:
     runs-on: ubuntu-latest
