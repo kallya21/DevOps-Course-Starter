@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     azurerm = {
-      source = "hashicorp/azurerm"
+      source  = "hashicorp/azurerm"
       version = ">= 3.8"
     }
   }
@@ -16,7 +16,7 @@ data "azurerm_resource_group" "main" {
 }
 
 resource "azurerm_service_plan" "main" {
-  name                = "terraformed-asp"
+  name                = "${var.prefix}-asp"
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
   os_type             = "Linux"
@@ -24,7 +24,7 @@ resource "azurerm_service_plan" "main" {
 }
 
 resource "azurerm_linux_web_app" "main" {
-  name                = "terraformed-ka-todoapp"
+  name                = "${var.prefix}-ka-todoapp"
   location            = data.azurerm_resource_group.main.location
   resource_group_name = data.azurerm_resource_group.main.name
   service_plan_id     = azurerm_service_plan.main.id
@@ -37,17 +37,17 @@ resource "azurerm_linux_web_app" "main" {
   }
 
   app_settings = {
-    "DOCKER_REGISTRY_SERVER_URL" = "https://index.docker.io"
-    "SECRET_KEY" = "secret-key"
-    "PRIMARY_CONNECTION_STRING" = azurerm_cosmosdb_account.main.primary_mongodb_connection_string
-    "MONGO_DB_NAME" = "todo-app-db"
-    "FLASK_APP" = "todo_app/app"
-    "WEBSITES_PORT" = "8000"
+    "DOCKER_REGISTRY_SERVER_URL" = var.docker_registry_server_url
+    "SECRET_KEY"                 = var.secret_key
+    "PRIMARY_CONNECTION_STRING"  = azurerm_cosmosdb_account.main.primary_mongodb_connection_string
+    "MONGO_DB_NAME"              = var.mongo_db_name
+    "FLASK_APP"                  = var.flask_app
+    "WEBSITES_PORT"              = var.websites_port
   }
 }
 
 resource "azurerm_cosmosdb_account" "main" {
-  name                 = "terraformed-todo-app-mongo-account"
+  name                 = "${var.prefix}-todo-app-mongo-account"
   location             = data.azurerm_resource_group.main.location
   resource_group_name  = data.azurerm_resource_group.main.name
   offer_type           = "Standard"
@@ -75,7 +75,7 @@ resource "azurerm_cosmosdb_account" "main" {
 }
 
 resource "azurerm_cosmosdb_mongo_database" "main" {
-  name                = "terraformed-todo-app-db"
+  name                = "${var.prefix}-todo-app-db"
   resource_group_name = azurerm_cosmosdb_account.main.resource_group_name
   account_name        = azurerm_cosmosdb_account.main.name
 
