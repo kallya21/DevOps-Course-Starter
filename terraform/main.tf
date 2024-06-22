@@ -5,6 +5,13 @@ terraform {
       version = ">= 3.8"
     }
   }
+
+  backend "azurerm" {
+        resource_group_name  = "Cohort28_KamAbo_ProjectExercise"
+        storage_account_name = "kamiliastorageaccount"
+        container_name       = "m12state"
+        key                  = "terraform.tfstate"
+  }
 }
 
 provider "azurerm" {
