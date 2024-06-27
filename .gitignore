@@ -118,7 +118,6 @@ env/
 
 ### Configuration files ###
 .env
-.terraform.lock.hcl
 terraform.tfvars
 
 # Local .terraform directories
