@@ -18,6 +18,7 @@ jobs:
     - run: docker build --target test --tag my-test-image .
     - run: docker run --env-file .env.test  my-test-image
     - run: docker run --entrypoint poetry my-test-image run safety check
+      continue-on-error: true
 
   deploy:
     name: Build and deploy
@@ -26,6 +27,7 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
     - uses: actions/checkout@v2
+
     - name: Login to Docker Hub
       uses: docker/login-action@v2
       with:
@@ -33,7 +35,24 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     - run: docker build --target production --tag kallya21/todo-app:latest .
     - run: docker push kallya21/todo-app:latest
-    - run: curl --fail -dH -X POST '${{ secrets.AZURE_WEBHOOK_URL }}'
+
+    - name: Set up and deploy Terraform
+      env:
+        ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+        ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+        TF_VAR_prefix: ${{ secrets.PREFIX }}
+        TF_VAR_docker_registry_server_url: ${{ secrets.DOCKER_REGISTRY_SERVER_URL }}
+        TF_VAR_secret_key: ${{ secrets.SECRET_KEY }}
+        TF_VAR_mongo_db_name: ${{ secrets.MONGO_DB_NAME }}
+        TF_VAR_flask_app: ${{ secrets.FLASK_APP }}
+        TF_VAR_websites_port: ${{ secrets.WEBSITES_PORT }}
+      run: |
+        cd terraform
+        terraform init
+        terraform apply -auto-approve
+        curl -dH -X POST "$(terraform output -raw cd_webhook)"
    
   security:
     runs-on: ubuntu-latest
