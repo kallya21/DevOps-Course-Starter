@@ -7,6 +7,7 @@ import logging
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config())
+    app.logger.setLevel(app.config['LOG_LEVEL'])
 
     @app.route('/')
     def index():
