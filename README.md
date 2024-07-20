@@ -40,6 +40,8 @@ $ az cosmosdb keys list -n <cosmos_account_name> -g <resource_group_name> --type
 ```
 You can populate the `MONGO_DB_NAME` with the name you want to give your MongoDB database.
 
+To get the `LOGGLY_TOKEN`, you will need to create a Loggly account and generate a token from there.
+
 ## Running the App
 
 Once the all dependencies have been installed, start the Flask app in development mode within the Poetry environment by running:
