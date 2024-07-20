@@ -27,3 +27,14 @@ variable "websites_port" {
   description = "Port website is hosted on"
   type        = string
 }
+
+variable "log_level" {
+  description = "Log level for logs"
+  type        = string
+}
+
+variable "loggly_token" {
+  description = "Token for Loggly"
+  type        = string
+  sensitive   = true
+}

@@ -50,6 +50,8 @@ resource "azurerm_linux_web_app" "main" {
     "MONGO_DB_NAME"              = var.mongo_db_name
     "FLASK_APP"                  = var.flask_app
     "WEBSITES_PORT"              = var.websites_port
+    "LOG_LEVEL"                  = var.log_level
+    "LOGGLY_TOKEN"               = var.loggly_token
   }
 }
 
