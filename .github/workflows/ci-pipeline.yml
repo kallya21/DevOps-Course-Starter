@@ -48,6 +48,8 @@ jobs:
         TF_VAR_mongo_db_name: ${{ secrets.MONGO_DB_NAME }}
         TF_VAR_flask_app: ${{ secrets.FLASK_APP }}
         TF_VAR_websites_port: ${{ secrets.WEBSITES_PORT }}
+        TF_VAR_log_level: ${{ secrets.LOG_LEVEL }}
+        TF_VAR_loggly_token: ${{ secrets.LOGGLY_TOKEN }}
       run: |
         cd terraform
         terraform init
