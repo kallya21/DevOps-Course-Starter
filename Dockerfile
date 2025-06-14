@@ -1,4 +1,4 @@
-FROM python:3.8-bookworm as base
+FROM python:3.13.5-bookworm as base
 
 RUN pip install poetry
 WORKDIR /app
